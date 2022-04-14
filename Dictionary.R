@@ -2,7 +2,7 @@ library(data.table)
 library(stringr)
 
 
-all_genes_ann<-fread( '/media/savytska/natalia/Annotation/hg38/gencode_v29_lncpedia_GenesOnly_ENSG.gtf' , select=c(9), sep="\t")
+all_genes_ann<-fread( 'gencode_v29_lncpedia_GenesOnly_ENSG.gtf' , select=c(9), sep="\t")
 all_genes_ann <- unique(all_genes_ann$V9[all_genes_ann$V9 %like% "ENSG"])
 all_genes_ann<-str_split_fixed(all_genes_ann, "; ",n=12)
 all_genes_ann<-as.data.frame(all_genes_ann)
@@ -55,5 +55,5 @@ all_genes_ann$V3<-gsub("\\..*","",all_genes_ann$V3)
 all_genes_ann[all_genes_ann$V1=="DLEU1",2]<-"ENSG00000176124"
 all_genes_ann<-all_genes_ann[,1:2]
 # Now dictionary for elements where V1 is not ENSG ID
-fwrite(all_genes_ann, '/media/savytska/natalia/Annotation/hg38/LNCID_to_ENSG_dictionary.txt',sep="\t",quote = F)
+fwrite(all_genes_ann, 'LNCID_to_ENSG_dictionary.txt',sep="\t",quote = F)
 
